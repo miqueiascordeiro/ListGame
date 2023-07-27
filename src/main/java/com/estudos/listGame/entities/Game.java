@@ -1,6 +1,7 @@
 package com.estudos.listGame.entities;
 
 import jakarta.persistence.*;
+import org.antlr.v4.runtime.misc.NotNull;
 
 import java.util.Objects;
 @Entity
@@ -9,22 +10,25 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
     private String title;
+    @NotNull
     @Column(name = "game_year")
     private Integer year;
+    @NotNull
     private String genre;
+    @NotNull
     private String platforms;
+    @NotNull
     private Double score;
+    @NotNull
     private String imgUrl;
     @Lob
+    @NotNull
     private String shortDescription;
     @Lob
+    @NotNull
     private String longDescription;
-
-
-    public Game(){
-
-    }
 
     public Game(Long id, String title, Integer year, String genre,
                 String platforms, Double score, String imgURL,
@@ -38,6 +42,17 @@ public class Game {
         this.imgUrl = imgURL;
         this.shortDescription = shortDescription;
         this.longDescription = longDescription;
+    }
+    public Game(Game entity) {
+        this.id = entity.getId();
+        this.title = entity.getTitle();
+        this.year = entity.getYear();
+        this.genre = entity.getGenre();
+        this.platforms = entity.getPlatforms();
+        this.score = entity.getScore();
+        this.imgUrl = entity.getImgUrl();
+        this.shortDescription = entity.getShortDescription();
+        this.longDescription = entity.getLongDescription();
     }
 
     public Long getId() {
