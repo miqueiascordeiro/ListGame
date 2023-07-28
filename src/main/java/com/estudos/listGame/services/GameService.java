@@ -8,15 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GameService {
     @Autowired
     public GameRepository gameRepository;
-
-    public GameService(GameRepository gameRepository) {
-        this.gameRepository = gameRepository;
-    }
 
     public List<GameMinDTO> findAll(){
         List<Game> result = gameRepository.findAll();
@@ -33,5 +30,24 @@ public class GameService {
     public Game createGame(Game gameCreatedto){
         Game savedGame = gameRepository.save(gameCreatedto);
         return new Game(savedGame);
+    }
+
+    public Game updateGame(Long id, Game gameUpdate){
+        Game existingGame = gameRepository.findById(id).orElse(null);
+        if(existingGame != null) {
+            existingGame.setTitle(gameUpdate.getTitle());
+            existingGame.setYear(gameUpdate.getYear());
+            existingGame.setGenre(gameUpdate.getGenre());
+            existingGame.setPlatforms(gameUpdate.getPlatforms());
+            existingGame.setScore(gameUpdate.getScore());
+            existingGame.setImgUrl(gameUpdate.getImgUrl());
+            existingGame.setShortDescription(gameUpdate.getShortDescription());
+            existingGame.setLongDescription(gameUpdate.getLongDescription());
+
+            return gameRepository.save(existingGame);
+        }else {
+            return null;
+        }
+
     }
 }

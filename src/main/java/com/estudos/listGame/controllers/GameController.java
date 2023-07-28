@@ -39,4 +39,19 @@ public class GameController {
         Game createdGame = gameService.createGame(game);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdGame);
     }
+
+    @PutMapping(value = "/games/{id}")
+    public ResponseEntity<?> updateGameById(@PathVariable Long id, @RequestBody Game gameUpdate){
+        Game updateG = gameService.updateGame(id, gameUpdate);
+
+        if(updateG != null){
+            return ResponseEntity.ok().body(updateG);
+        }else{
+            String Message = "Game not found for ID: " + id;
+            ErrorMessage error = new ErrorMessage(Message);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+
+        }
+
+    }
 }
