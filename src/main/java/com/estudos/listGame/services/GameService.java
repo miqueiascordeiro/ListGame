@@ -48,6 +48,16 @@ public class GameService {
         }else {
             return null;
         }
-
     }
+
+    public boolean deleteGame(Long id){
+        Optional<Game> game = gameRepository.findById(id);
+        if(game.isPresent()){
+            gameRepository.deleteById(id);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }

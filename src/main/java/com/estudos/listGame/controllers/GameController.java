@@ -51,6 +51,15 @@ public class GameController {
             ErrorMessage error = new ErrorMessage(Message);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
         }
+    }
 
+    @DeleteMapping(value = "/games/{id}")
+    public ResponseEntity<?> deleteGameById(@PathVariable Long id){
+        boolean deleteG = gameService.deleteGame(id);
+        if(deleteG){
+            return ResponseEntity.noContent().build();
+        }else{
+            return ResponseEntity.notFound().build();
+        }
     }
 }
