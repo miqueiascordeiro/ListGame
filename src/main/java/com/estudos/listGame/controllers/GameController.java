@@ -50,7 +50,6 @@ public class GameController {
             String Message = "Game not found for ID: " + id;
             ErrorMessage error = new ErrorMessage(Message);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
-
         }
 
     }
